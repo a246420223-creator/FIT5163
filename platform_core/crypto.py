@@ -10,7 +10,7 @@ def load_aes_key(path: str) -> bytes:
 def encrypt_message(key: bytes, plaintext: bytes, aad: bytes) -> dict:
     nonce = os.urandom(12)
     aesgcm = AESGCM(key)
-
+    print("[AES-GCM] Encrypting payload...")
     ciphertext = aesgcm.encrypt(
         nonce,
         plaintext,
@@ -28,7 +28,7 @@ def decrypt_message(key: bytes, nonce_hex: str, ciphertext_hex: str, aad: bytes)
     ciphertext = bytes.fromhex(ciphertext_hex)
 
     aesgcm = AESGCM(key)
-
+    print("[AES-GCM] Decrypting payload...")
     return aesgcm.decrypt(
         nonce,
         ciphertext,
