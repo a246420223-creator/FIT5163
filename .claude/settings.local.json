@@ -1,0 +1,9 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(where ollama *)",
+      "PowerShell(Get-Command ollama -ErrorAction SilentlyContinue; Test-Path \"$env:LOCALAPPDATA\\\\Programs\\\\Ollama\\\\ollama.exe\"; Test-Path \"C:\\\\Program Files\\\\Ollama\\\\ollama.exe\")",
+      "PowerShell(& \"$env:LOCALAPPDATA\\\\Programs\\\\Ollama\\\\ollama.exe\" list 2>&1)"
+    ]
+  }
+}

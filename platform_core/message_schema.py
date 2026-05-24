@@ -16,14 +16,24 @@ class Message(BaseModel):
 
 
 class SecureEnvelope(BaseModel):
+    """Carries an AES-GCM encrypted message. No per-message RSA key."""
 
     message_id: str
     sender: str
     receiver: str
 
-    encrypted_key: str
-
     nonce: str
     ciphertext: str
+
+    signature: Optional[str] = None
+
+
+class KeyEnvelope(BaseModel):
+    """Carries a RSA-encrypted shared AES key from sender to receiver."""
+
+    sender: str
+    receiver: str
+
+    encrypted_aes_key: str
 
     signature: Optional[str] = None

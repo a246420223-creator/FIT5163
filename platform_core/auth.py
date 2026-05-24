@@ -41,7 +41,7 @@ def verify_signature(public_key, signature_hex: str, data: bytes) -> bool:
 
 
 def rsa_encrypt(public_key, data: bytes) -> str:
-    print("[RSA] Encrypting AES session key...")
+    print("[RSA] Encrypting shared AES key...")
     ciphertext = public_key.encrypt(
         data,
         padding.OAEP(
@@ -57,7 +57,7 @@ def rsa_encrypt(public_key, data: bytes) -> str:
 
 
 def rsa_decrypt(private_key, ciphertext_hex: str) -> bytes:
-    print("[RSA] Decrypting AES session key...")
+    print("[RSA] Decrypting shared AES key...")
     ciphertext = bytes.fromhex(ciphertext_hex)
 
     plaintext = private_key.decrypt(

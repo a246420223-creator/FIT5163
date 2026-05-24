@@ -10,7 +10,6 @@ from platform_core.auth import (
     load_public_key
 )
 
-from platform_core.crypto import load_aes_key
 from platform_core.router import SecurePlatform
 from platform_core.transport import start_server
 
@@ -29,7 +28,6 @@ def main():
         "planner_1": load_public_key(
             "keys/planner_1_public.pem"
         ),
-
         "executor_1": load_public_key(
             "keys/executor_1_public.pem"
         )
@@ -39,14 +37,12 @@ def main():
         "planner_1": load_public_key(
             "keys/planner_1_rsa_public.pem"
         ),
-
         "executor_1": load_public_key(
             "keys/executor_1_rsa_public.pem"
         )
     }
 
-    aes_key = load_aes_key("keys/aes.key")
-
+    # Executor starts with no AES key — it must be received from Planner.
     platform = SecurePlatform(
         agent_id="executor_1",
 
@@ -56,47 +52,41 @@ def main():
         rsa_private_key=rsa_private_key,
         rsa_public_keys=rsa_public_keys,
 
-        aes_key=aes_key
+        aes_key=None
     )
 
-    executor = ExecutorAgent(
-        agent_id="executor_1"
-    )
+    executor = ExecutorAgent(agent_id="executor_1")
 
     def handle_request(envelope: dict) -> dict:
 
-        # KeyEnvelope: update the shared AES key and acknowledge.
+        # KeyEnvelope: Planner is distributing the shared AES key.
         if "encrypted_aes_key" in envelope:
             platform.receive_aes_key(envelope)
             return {"status": "aes_key_received"}
 
-        request_message = platform.secure_unwrap(
-            envelope
-        )
+        # Guard: reject normal messages if AES key has not arrived yet.
+        if platform.aes_key is None:
+            return {
+                "status": "error",
+                "error": "AES key has not been distributed yet."
+            }
 
-        result = executor.process_task(
-            request_message.payload
-        )
+        # Normal SecureEnvelope: decrypt, process, re-encrypt response.
+        request_message = platform.secure_unwrap(envelope)
+
+        result = executor.process_task(request_message.payload)
 
         response_message = Message(
             message_id=str(uuid4()),
-
             sender="executor_1",
-
             receiver=request_message.sender,
-
             timestamp=datetime.utcnow(),
-
-            message_type="task_result",
-
+            message_type="task_response",
             task_id=request_message.task_id,
-
             payload=result
         )
 
-        response_envelope = platform.secure_wrap(
-            response_message
-        )
+        response_envelope = platform.secure_wrap(response_message)
 
         return response_envelope
 
