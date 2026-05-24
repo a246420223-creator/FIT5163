@@ -79,6 +79,21 @@ def save_rsa_key_pair(agent_id: str):
     print(f"Generated RSA keys for {agent_id}")
 
 
+def save_aes_key():
+    aes_path = f"{KEY_DIR}/aes.key"
+
+    if os.path.exists(aes_path):
+        print("AES key already exists.")
+        return
+
+    aes_key = AESGCM.generate_key(bit_length=256)
+
+    with open(aes_path, "w") as f:
+        f.write(aes_key.hex())
+
+    print("Generated AES-256 key.")
+
+
 def main():
 
     os.makedirs(KEY_DIR, exist_ok=True)
@@ -88,6 +103,8 @@ def main():
 
     save_rsa_key_pair("planner_1")
     save_rsa_key_pair("executor_1")
+
+    save_aes_key()
 
 
 if __name__ == "__main__":
