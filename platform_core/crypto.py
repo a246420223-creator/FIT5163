@@ -3,8 +3,14 @@ import os
 
 
 def load_aes_key(path: str) -> bytes:
-    with open(path, "r") as f:
-        return bytes.fromhex(f.read().strip())
+    try:
+        with open(path, "r") as f:
+            return bytes.fromhex(f.read().strip())
+    except FileNotFoundError:
+        raise FileNotFoundError(
+            f"AES key file not found: {path}\n"
+            f"  Run 'python setup_keys.py' to generate all required key files."
+        )
 
 
 def encrypt_message(key: bytes, plaintext: bytes, aad: bytes) -> dict:

@@ -1,4 +1,10 @@
-import ollama
+# ollama is optional — the agent falls back to keyword/truncation heuristics
+# if the package is not installed or the service is not running.
+try:
+    import ollama as _ollama
+    _OLLAMA_AVAILABLE = True
+except ImportError:
+    _OLLAMA_AVAILABLE = False
 
 
 class ExecutorAgent:
@@ -7,7 +13,9 @@ class ExecutorAgent:
         self.agent_id = agent_id
 
     def _call_ollama(self, prompt: str) -> str:
-        response = ollama.chat(
+        if not _OLLAMA_AVAILABLE:
+            raise RuntimeError("ollama package not installed.")
+        response = _ollama.chat(
             model="llama3",
             messages=[{"role": "user", "content": prompt}]
         )

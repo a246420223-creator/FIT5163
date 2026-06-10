@@ -4,19 +4,24 @@ from cryptography.hazmat.primitives import hashes
 
 
 def load_private_key(path: str):
-
-    with open(path, "rb") as f:
-        return serialization.load_pem_private_key(
-            f.read(),
-            password=None
+    try:
+        with open(path, "rb") as f:
+            return serialization.load_pem_private_key(f.read(), password=None)
+    except FileNotFoundError:
+        raise FileNotFoundError(
+            f"Key file not found: {path}\n"
+            f"  Run 'python setup_keys.py' to generate all required key files."
         )
 
 
 def load_public_key(path: str):
-
-    with open(path, "rb") as f:
-        return serialization.load_pem_public_key(
-            f.read()
+    try:
+        with open(path, "rb") as f:
+            return serialization.load_pem_public_key(f.read())
+    except FileNotFoundError:
+        raise FileNotFoundError(
+            f"Key file not found: {path}\n"
+            f"  Run 'python setup_keys.py' to generate all required key files."
         )
 
 

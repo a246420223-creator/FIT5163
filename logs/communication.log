@@ -102,3 +102,50 @@
 2026-06-09 13:43:30,512 - INFO - executor_1 verified and decrypted message 707af31b-5083-4354-86ec-8667d3f6291a
 2026-06-09 13:43:30,600 - INFO - planner_1 signed and sent AES key to executor_1
 2026-06-09 13:43:30,603 - INFO - executor_1 received and stored AES key from planner_1
+2026-06-10 18:39:36,158 - INFO - planner_1 -> executor_1: AES-GCM encrypted + Ed25519 signed message 7b718b57-d3d8-4915-b021-b3352b9d3cba
+2026-06-10 18:39:36,158 - INFO - executor_1 [OK] verified and decrypted message 7b718b57-d3d8-4915-b021-b3352b9d3cba from planner_1 (signature OK, AES-GCM tag OK, no replay)
+2026-06-10 18:39:36,215 - INFO - planner_1 -> executor_1: AES-GCM encrypted + Ed25519 signed message e041509e-46b7-4134-a7b6-78721bccfedf
+2026-06-10 18:39:36,215 - WARNING - executor_1 REJECTED message from planner_1: AES-GCM authentication tag verification FAILED -- ciphertext may have been tampered (id=e041509e-46b7-4134-a7b6-78721bccfedf)
+2026-06-10 18:39:36,270 - INFO - planner_1 -> executor_1: AES-GCM encrypted + Ed25519 signed message 29e8d013-b8fa-4c8c-8803-fab65b6db693
+2026-06-10 18:39:36,271 - WARNING - executor_1 REJECTED message from planner_1: Ed25519 signature verification FAILED (id=29e8d013-b8fa-4c8c-8803-fab65b6db693)
+2026-06-10 18:39:36,327 - INFO - planner_1 -> executor_1: AES-GCM encrypted + Ed25519 signed message 8db51a69-9d42-4b76-93b6-60f080184187
+2026-06-10 18:39:36,328 - INFO - executor_1 [OK] verified and decrypted message 8db51a69-9d42-4b76-93b6-60f080184187 from planner_1 (signature OK, AES-GCM tag OK, no replay)
+2026-06-10 18:39:36,328 - WARNING - executor_1 REJECTED duplicate message_id from planner_1 (id=8db51a69-9d42-4b76-93b6-60f080184187)
+2026-06-10 18:39:36,385 - INFO - planner_1 -> executor_1: AES-GCM encrypted + Ed25519 signed message 2c9d20ff-4d0f-4252-bfbd-cc9b60607c6c
+2026-06-10 18:39:36,385 - INFO - executor_1 [OK] verified and decrypted message 2c9d20ff-4d0f-4252-bfbd-cc9b60607c6c from planner_1 (signature OK, AES-GCM tag OK, no replay)
+2026-06-10 18:39:36,385 - INFO - executor_1 -> planner_1: AES-GCM encrypted + Ed25519 signed message 2d831d7a-c59f-4d47-8ff0-fe90b68d08ef
+2026-06-10 18:39:36,385 - INFO - planner_1 [OK] verified and decrypted message 2d831d7a-c59f-4d47-8ff0-fe90b68d08ef from executor_1 (signature OK, AES-GCM tag OK, no replay)
+2026-06-10 18:39:36,385 - WARNING - planner_1 REJECTED message from executor_1: Ed25519 signature verification FAILED (id=2d831d7a-c59f-4d47-8ff0-fe90b68d08ef)
+2026-06-10 18:39:36,442 - INFO - planner_1 signed and sent AES key to executor_1 (RSA-OAEP encrypted, Ed25519 signed)
+2026-06-10 18:39:36,443 - INFO - executor_1 received and stored AES key from planner_1 (RSA-OAEP decrypted, signature verified)
+2026-06-10 18:39:36,443 - WARNING - executor_1 REJECTED duplicate message_id from planner_1 (id=82a267a0-35ce-47bf-846b-1d7267f26ee2)
+2026-06-10 18:39:46,732 - INFO - planner_1 -> executor_1: AES-GCM encrypted + Ed25519 signed message eca03994-0c4a-4233-ae89-b3a846e6371f
+2026-06-10 18:39:47,028 - INFO - planner_1 -> executor_1: AES-GCM encrypted + Ed25519 signed message 1dacd0d0-467f-4dbf-b1ba-b2dff1e3944f
+2026-06-10 18:39:47,028 - INFO - executor_1 [OK] verified and decrypted message 1dacd0d0-467f-4dbf-b1ba-b2dff1e3944f from planner_1 (signature OK, AES-GCM tag OK, no replay)
+2026-06-10 18:39:47,028 - WARNING - executor_1 REJECTED duplicate message_id from planner_1 (id=1dacd0d0-467f-4dbf-b1ba-b2dff1e3944f)
+2026-06-10 18:39:47,086 - INFO - planner_1 signed and sent AES key to executor_1 (RSA-OAEP encrypted, Ed25519 signed)
+2026-06-10 18:39:47,087 - INFO - executor_1 received and stored AES key from planner_1 (RSA-OAEP decrypted, signature verified)
+2026-06-10 18:39:47,087 - WARNING - executor_1 REJECTED duplicate message_id from planner_1 (id=309eb7bc-90e7-4774-b6ea-5420749b7567)
+2026-06-10 18:39:47,352 - INFO - planner_1 -> executor_1: AES-GCM encrypted + Ed25519 signed message c69cfd60-0b0b-4a3e-9529-b7c4fa49a76a
+2026-06-10 18:39:47,352 - INFO - executor_1 [OK] verified and decrypted message c69cfd60-0b0b-4a3e-9529-b7c4fa49a76a from planner_1 (signature OK, AES-GCM tag OK, no replay)
+2026-06-10 18:40:39,050 - INFO - planner_1 signed and sent AES key to executor_1 (RSA-OAEP encrypted, Ed25519 signed)
+2026-06-10 18:40:39,053 - INFO - executor_1 received and stored AES key from planner_1 (RSA-OAEP decrypted, signature verified)
+2026-06-10 18:40:41,098 - WARNING - [Planner] Ollama decomposition failed (Failed to connect to Ollama. Please check that Ollama is downloaded, running and accessible. https://ollama.com/download); using fallback.
+2026-06-10 18:40:41,098 - INFO - planner_1 sending task summarise_text (task_id=302ae4c1-bed8-4bc4-b811-f03be533ac38) to executor_1
+2026-06-10 18:40:41,101 - INFO - planner_1 -> executor_1: AES-GCM encrypted + Ed25519 signed message 8bf360e5-943e-472c-9f9e-378b20e84927
+2026-06-10 18:40:41,101 - INFO - planner_1 sent message 8bf360e5-943e-472c-9f9e-378b20e84927 to executor_1 at 127.0.0.1:9001
+2026-06-10 18:40:41,115 - INFO - executor_1 [OK] verified and decrypted message 8bf360e5-943e-472c-9f9e-378b20e84927 from planner_1 (signature OK, AES-GCM tag OK, no replay)
+2026-06-10 18:40:43,149 - INFO - executor_1 -> planner_1: AES-GCM encrypted + Ed25519 signed message 79203c18-85e6-4206-8cda-046b79f91b30
+2026-06-10 18:40:43,149 - INFO - executor_1 sent signed response for task 302ae4c1-bed8-4bc4-b811-f03be533ac38 to planner_1
+2026-06-10 18:40:43,150 - INFO - planner_1 [OK] verified and decrypted message 79203c18-85e6-4206-8cda-046b79f91b30 from executor_1 (signature OK, AES-GCM tag OK, no replay)
+2026-06-10 18:40:43,150 - INFO - planner_1 received verified result for task 302ae4c1-bed8-4bc4-b811-f03be533ac38
+2026-06-10 18:40:43,150 - INFO - planner_1 received signed result for task summarise_text (task_id=302ae4c1-bed8-4bc4-b811-f03be533ac38)
+2026-06-10 18:40:43,150 - INFO - planner_1 sending task classify_text (task_id=954d7b25-01ec-49b0-a6ff-ed6bd63aa273) to executor_1
+2026-06-10 18:40:43,151 - INFO - planner_1 -> executor_1: AES-GCM encrypted + Ed25519 signed message 0312fda2-0a2a-4ce2-a372-31616df3d8d6
+2026-06-10 18:40:43,151 - INFO - planner_1 sent message 0312fda2-0a2a-4ce2-a372-31616df3d8d6 to executor_1 at 127.0.0.1:9001
+2026-06-10 18:40:43,152 - INFO - executor_1 [OK] verified and decrypted message 0312fda2-0a2a-4ce2-a372-31616df3d8d6 from planner_1 (signature OK, AES-GCM tag OK, no replay)
+2026-06-10 18:40:45,195 - INFO - executor_1 -> planner_1: AES-GCM encrypted + Ed25519 signed message 89a9dab2-9857-408a-bb74-eeba3d88c4f3
+2026-06-10 18:40:45,196 - INFO - executor_1 sent signed response for task 954d7b25-01ec-49b0-a6ff-ed6bd63aa273 to planner_1
+2026-06-10 18:40:45,196 - INFO - planner_1 [OK] verified and decrypted message 89a9dab2-9857-408a-bb74-eeba3d88c4f3 from executor_1 (signature OK, AES-GCM tag OK, no replay)
+2026-06-10 18:40:45,196 - INFO - planner_1 received verified result for task 954d7b25-01ec-49b0-a6ff-ed6bd63aa273
+2026-06-10 18:40:45,196 - INFO - planner_1 received signed result for task classify_text (task_id=954d7b25-01ec-49b0-a6ff-ed6bd63aa273)
