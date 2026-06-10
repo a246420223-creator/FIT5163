@@ -31,8 +31,10 @@ class SecureEnvelope(BaseModel):
 class KeyEnvelope(BaseModel):
     """Carries a RSA-encrypted shared AES key from sender to receiver."""
 
+    message_id: str
     sender: str
     receiver: str
+    timestamp: datetime
 
     encrypted_aes_key: str
 

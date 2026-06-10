@@ -65,3 +65,40 @@
 2026-05-20 16:55:42,697 - INFO - executor_1 encrypted and signed message 65334430-7a29-4b7d-8f2c-84a1fa08df07
 2026-05-20 16:55:42,699 - INFO - planner_1 verified and decrypted message 65334430-7a29-4b7d-8f2c-84a1fa08df07
 2026-05-20 16:55:42,699 - INFO - planner_1 received result for task 64d33c8c-a777-4546-8b3e-e6f877c0e8f9
+2026-05-26 16:17:04,161 - INFO - planner_1 signed and sent AES key to executor_1
+2026-05-26 16:17:04,169 - INFO - executor_1 received and stored AES key from planner_1
+2026-05-26 16:17:15,131 - INFO - HTTP Request: POST http://127.0.0.1:11434/api/chat "HTTP/1.1 200 OK"
+2026-05-26 16:17:15,137 - INFO - planner_1 encrypted and signed message c59ddaf0-b3ce-4d43-9daf-edb384394065
+2026-05-26 16:17:15,137 - INFO - planner_1 sent message c59ddaf0-b3ce-4d43-9daf-edb384394065 to executor_1
+2026-05-26 16:17:15,141 - INFO - executor_1 verified and decrypted message c59ddaf0-b3ce-4d43-9daf-edb384394065
+2026-05-26 16:17:16,979 - INFO - HTTP Request: POST http://127.0.0.1:11434/api/chat "HTTP/1.1 200 OK"
+2026-05-26 16:17:16,984 - INFO - executor_1 encrypted and signed message 480218b7-6a07-476e-b564-dbd61749260f
+2026-05-26 16:17:16,985 - INFO - planner_1 verified and decrypted message 480218b7-6a07-476e-b564-dbd61749260f
+2026-05-26 16:17:16,985 - INFO - planner_1 received result for task e2cfbf62-bc45-4724-8f36-f6f85d4206b5
+2026-05-26 16:17:16,986 - INFO - planner_1 encrypted and signed message 2458ac64-ba22-4331-a8c9-eaf9f240ba8f
+2026-05-26 16:17:16,986 - INFO - planner_1 sent message 2458ac64-ba22-4331-a8c9-eaf9f240ba8f to executor_1
+2026-05-26 16:17:16,990 - INFO - executor_1 verified and decrypted message 2458ac64-ba22-4331-a8c9-eaf9f240ba8f
+2026-05-26 16:17:17,782 - INFO - HTTP Request: POST http://127.0.0.1:11434/api/chat "HTTP/1.1 200 OK"
+2026-05-26 16:17:17,783 - INFO - executor_1 encrypted and signed message b1664bc6-a385-4f0e-a13e-3794c274b88d
+2026-05-26 16:17:17,784 - INFO - planner_1 verified and decrypted message b1664bc6-a385-4f0e-a13e-3794c274b88d
+2026-05-26 16:17:17,784 - INFO - planner_1 received result for task 1e33482a-57bc-401a-b6ea-0b560d8baa2c
+2026-06-05 14:35:59,064 - INFO - planner_1 encrypted and signed message bbc2edae-167f-49ad-a8ed-932e39fe16f9
+2026-06-05 14:35:59,064 - INFO - executor_1 verified and decrypted message bbc2edae-167f-49ad-a8ed-932e39fe16f9
+2026-06-05 14:35:59,418 - INFO - planner_1 encrypted and signed message 185c45b5-e788-47f5-9839-f8dabb31c785
+2026-06-05 14:36:25,566 - INFO - planner_1 encrypted and signed message 7d1c73a7-9d70-472c-a9c3-25da69d78639
+2026-06-05 14:36:25,566 - INFO - executor_1 verified and decrypted message 7d1c73a7-9d70-472c-a9c3-25da69d78639
+2026-06-05 14:36:25,658 - INFO - planner_1 signed and sent AES key to executor_1
+2026-06-05 14:36:25,660 - INFO - executor_1 received and stored AES key from planner_1
+2026-06-05 14:36:31,777 - INFO - planner_1 encrypted and signed message 9f2a8805-d817-4700-9640-88c27b4a2b60
+2026-06-05 14:36:31,777 - INFO - executor_1 verified and decrypted message 9f2a8805-d817-4700-9640-88c27b4a2b60
+2026-06-05 14:36:49,589 - INFO - planner_1 encrypted and signed message 617fb7cd-01b9-416b-b72f-3190b284fc7e
+2026-06-05 14:36:49,590 - INFO - executor_1 verified and decrypted message 617fb7cd-01b9-416b-b72f-3190b284fc7e
+2026-06-05 14:36:49,686 - INFO - planner_1 signed and sent AES key to executor_1
+2026-06-05 14:36:49,688 - INFO - executor_1 received and stored AES key from planner_1
+2026-06-09 13:43:30,328 - INFO - planner_1 encrypted and signed message f9415183-6196-4c01-88bc-e7febe4c6786
+2026-06-09 13:43:30,429 - INFO - planner_1 encrypted and signed message 7a473c7f-ab0e-4b2a-af17-f6cf1c729a45
+2026-06-09 13:43:30,429 - INFO - executor_1 verified and decrypted message 7a473c7f-ab0e-4b2a-af17-f6cf1c729a45
+2026-06-09 13:43:30,512 - INFO - planner_1 encrypted and signed message 707af31b-5083-4354-86ec-8667d3f6291a
+2026-06-09 13:43:30,512 - INFO - executor_1 verified and decrypted message 707af31b-5083-4354-86ec-8667d3f6291a
+2026-06-09 13:43:30,600 - INFO - planner_1 signed and sent AES key to executor_1
+2026-06-09 13:43:30,603 - INFO - executor_1 received and stored AES key from planner_1

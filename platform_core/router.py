@@ -1,4 +1,6 @@
 import json
+from datetime import datetime, timezone
+from uuid import uuid4
 
 from platform_core.message_schema import Message, SecureEnvelope, KeyEnvelope
 
@@ -20,13 +22,15 @@ from platform_core.transport import send_message
 
 class SecurePlatform:
 
+    REPLAY_WINDOW_SECONDS = 300
+
     def __init__(
         self,
         agent_id: str,
         private_key,
         public_keys: dict,
-        rsa_private_key,
-        rsa_public_keys: dict,
+        rsa_private_key=None,
+        rsa_public_keys: dict | None = None,
         aes_key: bytes | None = None
     ):
 
@@ -36,9 +40,10 @@ class SecurePlatform:
         self.public_keys = public_keys
 
         self.rsa_private_key = rsa_private_key
-        self.rsa_public_keys = rsa_public_keys
+        self.rsa_public_keys = rsa_public_keys or {}
 
         self.aes_key = aes_key
+        self.seen_message_ids = {}
 
     def _aad(self, sender: str, receiver: str) -> bytes:
 
@@ -61,12 +66,59 @@ class SecurePlatform:
         """Canonical bytes signed/verified for a KeyEnvelope."""
 
         data = {
+            "message_id": envelope["message_id"],
             "sender": envelope["sender"],
             "receiver": envelope["receiver"],
+            "timestamp": self._timestamp_to_string(envelope["timestamp"]),
             "encrypted_aes_key": envelope["encrypted_aes_key"]
         }
 
         return json.dumps(data, sort_keys=True).encode("utf-8")
+
+    def _timestamp_to_string(self, timestamp) -> str:
+        if isinstance(timestamp, datetime):
+            return timestamp.isoformat()
+
+        return str(timestamp)
+
+    def _utc_now(self) -> datetime:
+        return datetime.now(timezone.utc)
+
+    def _as_utc(self, timestamp: datetime) -> datetime:
+        if timestamp.tzinfo is None:
+            return timestamp.replace(tzinfo=timezone.utc)
+
+        return timestamp.astimezone(timezone.utc)
+
+    def _reject_replay(self, sender: str, message_id: str, timestamp: datetime) -> None:
+        now = self._utc_now()
+        cutoff_seconds = self.REPLAY_WINDOW_SECONDS
+
+        expired_ids = [
+            cache_key
+            for cache_key, seen_at in self.seen_message_ids.items()
+            if (now - seen_at).total_seconds() > cutoff_seconds
+        ]
+
+        for cache_key in expired_ids:
+            del self.seen_message_ids[cache_key]
+
+        message_time = self._as_utc(timestamp)
+        message_age = abs((now - message_time).total_seconds())
+
+        if message_age > cutoff_seconds:
+            raise ValueError(
+                "Replay attack detected: message timestamp is outside the accepted window."
+            )
+
+        cache_key = (sender, message_id)
+
+        if cache_key in self.seen_message_ids:
+            raise ValueError(
+                "Replay attack detected: duplicate message_id."
+            )
+
+        self.seen_message_ids[cache_key] = now
 
     # ------------------------------------------------------------------
     # AES key distribution (RSA-protected)
@@ -91,8 +143,10 @@ class SecurePlatform:
         )
 
         envelope = {
+            "message_id": str(uuid4()),
             "sender": self.agent_id,
             "receiver": receiver,
+            "timestamp": self._utc_now().isoformat(),
             "encrypted_aes_key": encrypted_aes_key,
             "signature": None
         }
@@ -135,6 +189,17 @@ class SecurePlatform:
             raise ValueError(
                 "Invalid signature on KeyEnvelope."
             )
+
+        if envelope.receiver != self.agent_id:
+            raise ValueError(
+                f"KeyEnvelope receiver mismatch: expected {self.agent_id}, got {envelope.receiver}."
+            )
+
+        self._reject_replay(
+            sender=envelope.sender,
+            message_id=envelope.message_id,
+            timestamp=envelope.timestamp
+        )
 
         print("[Router] Recovering shared AES key via RSA...")
 
@@ -227,6 +292,27 @@ class SecurePlatform:
 
         message = Message(
             **json.loads(plaintext.decode("utf-8"))
+        )
+
+        if message.message_id != envelope.message_id:
+            raise ValueError(
+                "Envelope message_id does not match decrypted message_id."
+            )
+
+        if message.sender != envelope.sender:
+            raise ValueError(
+                "Envelope sender does not match decrypted message sender."
+            )
+
+        if message.receiver != self.agent_id:
+            raise ValueError(
+                f"Message receiver mismatch: expected {self.agent_id}, got {message.receiver}."
+            )
+
+        self._reject_replay(
+            sender=message.sender,
+            message_id=message.message_id,
+            timestamp=message.timestamp
         )
 
         log_event(
